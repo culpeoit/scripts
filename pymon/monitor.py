@@ -6,14 +6,16 @@ import requests # For HTTP request
 _logger = logging.getLogger(__name__)
 
 def check_connectivity(site):
+    # TODO swap os.system with subprocess.call
     ping = os.system("ping -n 1 " +site)
 
-    if ping == 1:
-        _logger.warning('Site %s is down', site)
-        return False
-    else:
+    if ping == 0:
         _logger.info('Site %s is online', site)
         return True
+    else:
+        _logger.warning('Site %s is down', site)
+        return False
+
 
 def check_service(service):
     # Makes HTTP request
